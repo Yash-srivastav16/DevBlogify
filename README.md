@@ -1,0 +1,2 @@
+# DevBlogify
+Simple Blogging Application
