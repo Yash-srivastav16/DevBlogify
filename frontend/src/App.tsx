@@ -1,11 +1,18 @@
 import React from 'react';
 import AppRoutes from './routes';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Footer from './components/Footer';
+import Navbar from './components/Navbar';
 
 const App: React.FC = () => {
     return (
-        <div>
-            <AppRoutes />
-        </div>
+      <Router>  
+      <div>
+        <Navbar /> 
+        <AppRoutes /> 
+        <Footer /> 
+      </div>
+    </Router>
     );
 };
 
