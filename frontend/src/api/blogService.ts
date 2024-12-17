@@ -25,7 +25,7 @@ export const fetchBlogById = async (id : string) => {
 }
 
 //Add a new blog
-export const addBlog = async (blogData: { title: string; content: string; tags: string[]}) => {
+export const addBlog = async (blogData: { title: string; content: string; tags: string}) => {
     try {
         const response = await axios.post(`${API_URL}/blogs`, blogData);
         return response.data;
@@ -36,7 +36,7 @@ export const addBlog = async (blogData: { title: string; content: string; tags: 
 }
 
 //Update an existing blog
-export const updateBlog = async (id: string, blogData: { title: string; content: string; tags: string[]}) => {
+export const updateBlog = async (id: string, blogData: { title: string; content: string; tags: string}) => {
     try {
         const response = await axios.put(`${API_URL}/blogs/${id}`, blogData);
         return response.data;

@@ -9,9 +9,11 @@ interface BlogListProps {
 }
 
 const BlogList: React.FC<BlogListProps> = ({ blogs }) => {
+  const sortedBlogs = [...blogs].reverse();
+
   return (
     <Box sx={{ display: "flex", flexWrap: "wrap", gap: "1.5rem", justifyContent: "center" }}>
-      {blogs.map((blog) => (
+      {sortedBlogs.map((blog) => (
         <BlogCard key={blog.id} blog={blog} />
       ))}
     </Box>
