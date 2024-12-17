@@ -1,11 +1,13 @@
 import express, { Request, Response } from 'express';
 import sqlite3 from 'sqlite3';
+import cors from 'cors';
 
 const app = express();
 const port = 5000;
 
 const db = new sqlite3.Database('./blogs.db');
 
+app.use(cors());
 app.use(express.json());
 
 // Initialize SQLite Database and create blogs table if it doesn't exist
