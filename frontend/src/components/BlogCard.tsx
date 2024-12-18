@@ -22,8 +22,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
         "&:hover": {
           boxShadow: 10,
           transform: "scale(1.05)",
-        },
-        border: "1px solid #ffffff",
+        }
       }}
     >
       <CardMedia
