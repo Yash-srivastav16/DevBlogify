@@ -1,4 +1,4 @@
-// components/BlogList.tsx
+
 import React from 'react';
 import { Box } from '@mui/material';
 import BlogCard from './BlogCard';
