@@ -3,6 +3,7 @@ import { fetchBlogs } from "../api/blogService";
 import SearchBar from "../components/SearchBar";
 import BlogList from "../components/BlogList";
 import { Blog } from "../utils/blogTypes";
+import ServerError from "../components/ServerError";
 
 
 const HomePage: React.FC = () => {
@@ -27,7 +28,7 @@ const HomePage: React.FC = () => {
         setBlogs(formattedData);
         setFilteredBlogs(formattedData);
       } catch (err) {
-        setError("Failed to load blogs.");
+        setError("Network error! Please try again later.");
       }
     };
     loadBlogs();
@@ -44,7 +45,7 @@ const HomePage: React.FC = () => {
     setFilteredBlogs(filtered);
   }, [searchQuery, blogs]);
 
-  if (error) return <div>{error}</div>;
+  if (error) return  <ServerError errorMessage={error} />;
 
   return (
     <div>
