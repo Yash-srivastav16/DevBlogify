@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Card,
-  CardMedia,
   CardContent,
   Typography,
   Box,
@@ -43,12 +42,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
         },
       }}
     >
-      <CardMedia
-        component="img"
-        height="140"
-        image="https://via.placeholder.com/600x400.png?text=Dev+Blogify"
-        alt="Blog Image"
-      />
+   
       <CardContent sx={{ flex: 1, padding: "1.5rem" }}>
         <Typography variant="h6" component="div" sx={{ fontWeight: "bold" }}>
           {blog.title}
