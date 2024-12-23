@@ -1,5 +1,14 @@
 import React from "react";
-import { Grid, Typography, Box, Avatar, Chip, Divider } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  Box,
+  Avatar,
+  Chip,
+  Divider,
+  Button,
+} from "@mui/material";
+import { LinkedIn, GitHub, Description } from "@mui/icons-material";
 
 const AboutDev: React.FC = () => {
   return (
@@ -15,16 +24,74 @@ const AboutDev: React.FC = () => {
             alt="Yash"
             src="/dev.jpg"
             sx={{
-              width: "250px",
-              height: "250px",
+              width: "220px",
+              height: "220px",
               margin: "0 auto",
-              marginTop: "5rem",
               boxShadow: 3,
             }}
           />
-          <Typography variant="h6" sx={{ marginTop: "1rem", fontWeight: "bold" }}>
+          <Typography
+            variant="h4"
+            sx={{ marginTop: "1rem", fontWeight: "bold" }}
+          >
             Yash Srivastav
           </Typography>
+
+          <Box
+            sx={{
+              marginTop: "1rem",
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              gap: "1rem",
+            }}
+          >
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<LinkedIn />}
+              href="https://www.linkedin.com/in/yash-srivastav/"
+              target="_blank"
+            >
+              LinkedIn Profile
+            </Button>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "#333",
+                color: "#fff",
+                "&:hover": { backgroundColor: "#555" },
+              }}
+              startIcon={<GitHub />}
+              href="https://github.com/Yash-srivastav16"
+              target="_blank"
+            >
+              GitHub Profile
+            </Button>
+            <Button
+              variant="outlined"
+              startIcon={<Description />}
+              href="/Yash_Srivastav_CV.pdf"
+              target="_blank"
+            >
+              Download Resume
+            </Button>
+          </Box>
+          <Box sx={{ marginTop: "1rem" }}>
+            <Typography
+              variant="h5"
+              sx={{ fontWeight: "bold", marginBottom: "1rem" }}
+            >
+              What People Say
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{ fontStyle: "italic", color: "#555" }}
+            >
+              "Yash is a highly skilled developer who consistently delivers
+              quality work and exceeds expectations." – Former Manager
+            </Typography>
+          </Box>
         </Grid>
 
         <Grid item xs={12} md={8}>
@@ -45,36 +112,45 @@ const AboutDev: React.FC = () => {
               color: "#555",
             }}
           >
-            Hi, I am Yash, a skilled software developer with a passion for learning and
-            solving real-world problems through technology. My journey in software
-            development has allowed me to build impactful projects, enhance team
-            workflows, and adopt best practices in modern web development.
+            Hi, I am Yash, a skilled software developer with a passion for
+            learning and solving real-world problems through technology. My
+            journey in software development has allowed me to build impactful
+            projects, enhance team workflows, and adopt best practices in modern
+            web development.
           </Typography>
 
           <Box sx={{ marginTop: "2rem" }}>
-            <Typography variant="h5" sx={{ fontWeight: "bold", marginBottom: "1rem" }}>
+            <Typography
+              variant="h5"
+              sx={{ fontWeight: "bold", marginBottom: "1rem" }}
+            >
               Career Highlights
             </Typography>
             <Typography variant="body1" sx={{ lineHeight: 1.8, color: "#555" }}>
-              I’ve worked with a range of technologies and tools, including .NET,
-              JavaScript, TypeScript, AWS services, and CI/CD processes. Here are some
-              key highlights:
+              I’ve worked with a range of technologies and tools, including
+              .NET, JavaScript, TypeScript, AWS services, and CI/CD processes.
+              Here are some key highlights:
               <ul style={{ marginTop: "0.5rem" }}>
-                <li>Developed scalable web applications using the MERN stack.</li>
                 <li>
-                  Built custom GitHub Actions for automation, improving deployment
-                  pipelines.
+                  Developed scalable web applications using the MERN stack.
                 </li>
                 <li>
-                  Reduced bottlenecks by optimizing APIs and integrating UI testing with
-                  Cypress.
+                  Built custom GitHub Actions for automation, improving
+                  deployment pipelines.
+                </li>
+                <li>
+                  Reduced bottlenecks by optimizing APIs and integrating UI
+                  testing with Cypress.
                 </li>
               </ul>
             </Typography>
           </Box>
 
           <Box sx={{ marginTop: "2rem" }}>
-            <Typography variant="h5" sx={{ fontWeight: "bold", marginBottom: "1rem" }}>
+            <Typography
+              variant="h5"
+              sx={{ fontWeight: "bold", marginBottom: "1rem" }}
+            >
               Skills & Expertise
             </Typography>
             <Grid container spacing={1}>
