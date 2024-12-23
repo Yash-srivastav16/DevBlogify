@@ -12,12 +12,24 @@ import { Blog } from "../utils/blogTypes";
 import { useNavigate } from "react-router-dom";
 import ShareButton from "./ShareButtons";
 
+// Helper function to check if the date is today
+const isToday = (date: Date) => {
+  const today = new Date();
+  return (
+    date.getDate() === today.getDate() &&
+    date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear()
+  );
+};
+
 interface BlogCardProps {
   blog: Blog;
 }
 
 const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
   const navigate = useNavigate();
+  const creationDate = new Date(blog.timestamp);
+  const showNewTag = isToday(creationDate); // Check if it's created today
 
   const handleReadMore = () => {
     navigate(`/blog/${blog.id}`);
@@ -38,6 +50,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
         flexDirection: "column",
         justifyContent: "space-between",
         transition: "transform 0.3s ease-in-out",
+        position: "relative", 
       }}
       onMouseOver={(e: { currentTarget: { style: { transform: string } } }) =>
         (e.currentTarget.style.transform = "scale(1.05)")
@@ -46,13 +59,36 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
         (e.currentTarget.style.transform = "scale(1)")
       }
     >
+      {showNewTag && (
+        <Box
+          sx={{
+            position: "absolute",
+            top: "-3px", 
+            zIndex: 2, 
+          }}
+        >
+          <Chip
+            label="New"
+            color="error"
+            size="small"
+            sx={{
+              fontWeight: "bold",
+              borderRadius: "4px",
+              backgroundColor: "#d32f2f",
+              color: "#fff", 
+              padding: "0.5rem",
+            }}
+          />
+        </Box>
+      )}
+
       <CardHeader
         style={{
           backgroundColor: "#1976d2",
           color: "#fff",
           textAlign: "center",
           padding: "1rem",
-          height: "4.7rem",
+          height: "5rem",
         }}
       >
         <Typography
@@ -65,11 +101,12 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
             letterSpacing: "1px",
             overflow: "hidden",
             display: "-webkit-box",
-            WebkitLineClamp: 2, 
-            WebkitBoxOrient: "vertical", 
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical",
             textAlign: "center",
+            paddingTop: "6px",
           }}
-          title={blog.title} 
+          title={blog.title}
         >
           {blog.title}
         </Typography>
@@ -122,7 +159,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
           backgroundColor: "#f9f9f9",
         }}
       >
-        <ShareButton url={shareUrl} title={shareText} /> 
+        <ShareButton url={shareUrl} title={shareText} />
         <Button
           onClick={handleReadMore}
           style={{

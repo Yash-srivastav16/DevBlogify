@@ -27,9 +27,9 @@ const AddEditBlog: React.FC = () => {
 
   useEffect(() => {
     if (id) {
-      setLoading(true);
       const fetchBlog = async () => {
         try {
+          setLoading(true);
           const fetchedBlog = await fetchBlogById(id);
 
           setFormData({
@@ -116,7 +116,11 @@ const AddEditBlog: React.FC = () => {
           variant="h4"
           sx={{
             fontWeight: 600,
-            fontSize: "2.5rem",
+            fontSize: {
+              xs: '1.5rem', 
+              sm: '2rem',   
+              md: '2.5rem', 
+            },
             color: "#fff", 
             letterSpacing: 1.5,
             fontFamily: "'Poppins', sans-serif",

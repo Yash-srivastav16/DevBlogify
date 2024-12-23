@@ -50,7 +50,7 @@ const BlogDetailsPage: React.FC = () => {
     try {
       await deleteBlog(id || "");
       setNotification({
-        type: "success",
+        type: "error",
         message: "Blog deleted successfully!",
       });
       setTimeout(() => navigate("/"), 2000);
