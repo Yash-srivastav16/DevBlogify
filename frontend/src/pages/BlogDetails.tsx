@@ -6,6 +6,7 @@ import { Dialog } from "@progress/kendo-react-dialogs";
 import { fetchBlogById, deleteBlog } from "../api/blogService";
 import { Blog } from "../utils/blogTypes";
 import LoadingBar from "../components/LoadingBar";
+import ShareButton from "../components/ShareButtons";
 
 const BlogDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -85,8 +86,15 @@ const BlogDetailsPage: React.FC = () => {
   }
 
   return (
-    <Box sx={{ padding: "2rem", display: "flex", justifyContent: "center", minHeight: "70vh",background: "linear-gradient(to bottom, #e3f2fd, #e0f7fa)",
-    }}>
+    <Box
+      sx={{
+        padding: "2rem",
+        display: "flex",
+        justifyContent: "center",
+        minHeight: "70vh",
+        background: "linear-gradient(to bottom, #e3f2fd, #e0f7fa)",
+      }}
+    >
       <Paper
         elevation={3}
         sx={{
@@ -95,7 +103,7 @@ const BlogDetailsPage: React.FC = () => {
           width: "100%",
           borderRadius: "10px",
           boxShadow: 5,
-          height: "100%"
+          height: "100%",
         }}
       >
         <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold" }}>
@@ -105,20 +113,34 @@ const BlogDetailsPage: React.FC = () => {
           Posted on: {new Date(blog.timestamp).toLocaleDateString()} at{" "}
           {new Date(blog.timestamp).toLocaleTimeString()}
         </Typography>
-        <Box sx={{ marginY: "1rem" }}>
-          {blog.tags.map((tag: any, index: any) => (
-            <Chip
-              key={index}
-              label={`#${tag}`}
-              size="small"
-              sx={{
-                marginRight: "0.5rem",
-                marginBottom: "0.5rem",
-                backgroundColor: "#0288d1",
-                color: "#fff",
-              }}
-            />
-          ))}
+
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginY: "1rem",
+          }}
+        >
+          <Box>
+            {blog.tags.map((tag: any, index: any) => (
+              <Chip
+                key={index}
+                label={`#${tag}`}
+                size="small"
+                sx={{
+                  marginRight: "0.5rem",
+                  marginBottom: "0.5rem",
+                  backgroundColor: "#0288d1",
+                  color: "#fff",
+                }}
+              />
+            ))}
+          </Box>
+
+          <Box>
+            <ShareButton url={window.location.href} title={blog.title} />
+          </Box>
         </Box>
         <Typography variant="body1" gutterBottom>
           {blog.content}
