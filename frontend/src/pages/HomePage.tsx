@@ -4,6 +4,8 @@ import SearchBar from "../components/SearchBar";
 import BlogList from "../components/BlogList";
 import { Blog } from "../utils/blogTypes";
 import ServerError from "../components/ServerError";
+import NoBlogsFound from "../components/NoBlogsFound";
+import LoadingBar from "../components/LoadingBar";
 
 
 const HomePage: React.FC = () => {
@@ -11,10 +13,17 @@ const HomePage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredBlogs, setFilteredBlogs] = useState<Blog[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true); // Loading state
+
+  const handleResetFilter = () => {
+    setFilteredBlogs(blogs); 
+    setSearchQuery("")
+  };
 
   useEffect(() => {
     const loadBlogs = async () => {
       try {
+        setLoading(true);
         const data = await fetchBlogs();
 
         // Ensure tags are arrays
@@ -29,6 +38,8 @@ const HomePage: React.FC = () => {
         setFilteredBlogs(formattedData);
       } catch (err) {
         setError("Network error! Please try again later.");
+      } finally {
+        setLoading(false);
       }
     };
     loadBlogs();
@@ -47,10 +58,15 @@ const HomePage: React.FC = () => {
 
   if (error) return  <ServerError errorMessage={error} />;
 
+  if (loading) {
+    return <LoadingBar />
+  }
+
   return (
     <div>
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-      <BlogList blogs={filteredBlogs} />
+      {filteredBlogs.length > 0 ? (<BlogList blogs={filteredBlogs} />) : (<NoBlogsFound  message="No blogs match your search criteria."
+          onResetFilter={handleResetFilter}/>)}
     </div>
   );
 };

@@ -83,7 +83,6 @@ const AddEditBlog: React.FC = () => {
         sx={{
           maxWidth: 500,
           margin: "auto",
-          borderRadius: 3,
           boxShadow: 2,
           backgroundColor: "background.paper",
           padding: "1rem",

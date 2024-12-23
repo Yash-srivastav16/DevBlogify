@@ -6,12 +6,12 @@ import {
   Box,
   Button,
   Chip,
-  CircularProgress,
 } from "@mui/material";
 import { Notification } from "@progress/kendo-react-notification";
 import { Dialog } from "@progress/kendo-react-dialogs";
 import { fetchBlogById, deleteBlog } from "../api/blogService";
 import { Blog } from "../utils/blogTypes";
+import LoadingBar from "../components/LoadingBar";
 
 const BlogDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -75,18 +75,7 @@ const BlogDetailsPage: React.FC = () => {
   };
 
   if (loading) {
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "80vh",
-        }}
-      >
-        <CircularProgress />
-      </Box>
-    );
+    return <LoadingBar />
   }
 
   if (!blog) {
