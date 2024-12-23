@@ -5,13 +5,11 @@ const AboutDev: React.FC = () => {
   return (
     <Box
       sx={{
-        backgroundColor: "#f7f9fc",
+        background: "linear-gradient(to bottom, #e3f2fd, #e0f7fa)",
         padding: "2rem",
-        minHeight: "100vh",
       }}
     >
       <Grid container spacing={4} alignItems="top">
-        {/* Developer Avatar */}
         <Grid item xs={12} md={4} sx={{ textAlign: "center" }}>
           <Avatar
             alt="Yash"
@@ -29,7 +27,6 @@ const AboutDev: React.FC = () => {
           </Typography>
         </Grid>
 
-        {/* About Content */}
         <Grid item xs={12} md={8}>
           <Typography
             variant="h4"
@@ -109,7 +106,6 @@ const AboutDev: React.FC = () => {
 
       <Divider sx={{ marginY: "2rem" }} />
 
-      {/* Footer Section */}
       <Box
         sx={{
           textAlign: "center",

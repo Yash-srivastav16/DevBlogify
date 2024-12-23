@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Button, TextField, Typography, Container, Paper } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Typography,
+  Paper,
+  Box,
+} from "@mui/material";
 import { addBlog, fetchBlogById, updateBlog } from "../api/blogService";
 import { useNavigate, useParams } from "react-router-dom";
 import { Notification } from "@progress/kendo-react-notification";
@@ -33,6 +39,7 @@ const AddEditBlog: React.FC = () => {
           });
         } catch (err) {
           console.error("Error fetching blog:", err);
+          setNotification({ type: "error", message: "Error fetching blog:" });
         } finally {
           setLoading(false);
         }
@@ -78,26 +85,42 @@ const AddEditBlog: React.FC = () => {
   };
 
   return (
-    <Container>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        background: "linear-gradient(to bottom, #e3f2fd, #e0f7fa)",
+        width: "100%",
+        padding: 0,
+      }}
+    >
       <Paper
         sx={{
-          maxWidth: 500,
           margin: "auto",
-          boxShadow: 2,
+          boxShadow: 3,
           backgroundColor: "background.paper",
           padding: "1rem",
-          marginTop: "2rem",
+          paddingRight: "4rem",
+          paddingLeft: "4rem",
+          marginBottom: "0",
+          marginTop: "2.4rem",
+          borderRadius: "15px",
+          textAlign: "center", 
+          background: "linear-gradient(45deg, #1976d2, #0288d1)", 
+          color: "#fff", 
         }}
       >
         <Typography
           variant="h4"
-          align="center"
           sx={{
             fontWeight: 600,
             fontSize: "2.5rem",
-            color: "#1976d2",
+            color: "#fff", 
             letterSpacing: 1.5,
             fontFamily: "'Poppins', sans-serif",
+            textShadow: "2px 2px 5px rgba(0, 0, 0, 0.2)", 
           }}
         >
           {id ? "Edit Blog" : "Create New Blog"}
@@ -186,7 +209,7 @@ const AddEditBlog: React.FC = () => {
           <Typography>{notification.message}</Typography>
         </Notification>
       )}
-    </Container>
+    </Box>
   );
 };
 

@@ -6,7 +6,7 @@ import { Blog } from "../utils/blogTypes";
 import ServerError from "../components/ServerError";
 import NoBlogsFound from "../components/NoBlogsFound";
 import LoadingBar from "../components/LoadingBar";
-
+import { Box } from "@mui/material";
 
 const HomePage: React.FC = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -16,8 +16,8 @@ const HomePage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true); // Loading state
 
   const handleResetFilter = () => {
-    setFilteredBlogs(blogs); 
-    setSearchQuery("")
+    setFilteredBlogs(blogs);
+    setSearchQuery("");
   };
 
   useEffect(() => {
@@ -45,6 +45,8 @@ const HomePage: React.FC = () => {
     loadBlogs();
   }, []);
 
+  const uniqueTags = Array.from(new Set(blogs.flatMap((blog) => blog.tags)));
+  
   useEffect(() => {
     const filtered = blogs.filter(
       (blog) =>
@@ -56,17 +58,38 @@ const HomePage: React.FC = () => {
     setFilteredBlogs(filtered);
   }, [searchQuery, blogs]);
 
-  if (error) return  <ServerError errorMessage={error} />;
+  if (error) return <ServerError errorMessage={error} />;
 
   if (loading) {
-    return <LoadingBar />
+    return <LoadingBar />;
   }
 
   return (
     <div>
-      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-      {filteredBlogs.length > 0 ? (<BlogList blogs={filteredBlogs} />) : (<NoBlogsFound  message="No blogs match your search criteria."
-          onResetFilter={handleResetFilter}/>)}
+      <Box
+        sx={{
+          minHeight: "100vh",
+          background: "linear-gradient(to bottom, #e3f2fd, #e0f7fa)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          padding: "2rem",
+        }}
+      >
+        <SearchBar
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          availableTags={uniqueTags}
+        />
+        {filteredBlogs.length > 0 ? (
+          <BlogList blogs={filteredBlogs} />
+        ) : (
+          <NoBlogsFound
+            message="No blogs match your search criteria."
+            onResetFilter={handleResetFilter}
+          />
+        )}
+      </Box>
     </div>
   );
 };

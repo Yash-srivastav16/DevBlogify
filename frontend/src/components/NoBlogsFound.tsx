@@ -10,7 +10,7 @@ interface NoBlogsFoundProps {
 const NoBlogsFound: React.FC<NoBlogsFoundProps> = ({
   message,
   onResetFilter,
-  image = "/no-result.jpg", 
+  image = "/no-result.png", 
 }) => {
   return (
     <Box

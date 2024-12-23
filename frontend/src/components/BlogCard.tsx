@@ -63,7 +63,13 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
             fontSize: "1.1rem",
             textTransform: "uppercase",
             letterSpacing: "1px",
+            overflow: "hidden",
+            display: "-webkit-box",
+            WebkitLineClamp: 2, 
+            WebkitBoxOrient: "vertical", 
+            textAlign: "center",
           }}
+          title={blog.title} 
         >
           {blog.title}
         </Typography>

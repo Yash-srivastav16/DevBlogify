@@ -8,7 +8,8 @@ const LoadingBar: React.FC = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: "75vh",
+          height: "100vh",
+          background: "linear-gradient(to bottom, #e3f2fd, #e0f7fa)",
         }}
       >
         <CircularProgress />

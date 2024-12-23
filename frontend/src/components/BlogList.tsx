@@ -12,7 +12,7 @@ const BlogList: React.FC<BlogListProps> = ({ blogs }) => {
   const sortedBlogs = [...blogs].reverse();
 
   return (
-    <Box sx={{ display: "flex", flexWrap: "wrap", gap: "1.5rem", justifyContent: "center" }}>
+    <Box sx={{ display: "flex", flexWrap: "wrap", gap: "2rem", justifyContent: "center" }}>
       {sortedBlogs.map((blog) => (
         <BlogCard key={blog.id} blog={blog} />
       ))}

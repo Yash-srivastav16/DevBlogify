@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  Paper,
-  Typography,
-  Box,
-  Button,
-  Chip,
-} from "@mui/material";
+import { Paper, Typography, Box, Button, Chip } from "@mui/material";
 import { Notification } from "@progress/kendo-react-notification";
 import { Dialog } from "@progress/kendo-react-dialogs";
 import { fetchBlogById, deleteBlog } from "../api/blogService";
@@ -75,7 +69,7 @@ const BlogDetailsPage: React.FC = () => {
   };
 
   if (loading) {
-    return <LoadingBar />
+    return <LoadingBar />;
   }
 
   if (!blog) {
@@ -91,7 +85,8 @@ const BlogDetailsPage: React.FC = () => {
   }
 
   return (
-    <Box sx={{ padding: "2rem", display: "flex", justifyContent: "center" }}>
+    <Box sx={{ padding: "2rem", display: "flex", justifyContent: "center", minHeight: "70vh",background: "linear-gradient(to bottom, #e3f2fd, #e0f7fa)",
+    }}>
       <Paper
         elevation={3}
         sx={{
@@ -100,6 +95,7 @@ const BlogDetailsPage: React.FC = () => {
           width: "100%",
           borderRadius: "10px",
           boxShadow: 5,
+          height: "100%"
         }}
       >
         <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold" }}>
@@ -139,7 +135,7 @@ const BlogDetailsPage: React.FC = () => {
           </Button>
           <Button
             variant="contained"
-            color="secondary"
+            color="error"
             onClick={() => setShowDialog(true)}
           >
             Delete Blog
