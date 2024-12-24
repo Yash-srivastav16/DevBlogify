@@ -57,7 +57,7 @@ const AddEditBlog: React.FC = () => {
       const blogData = {
         title: formData.title,
         content: formData.content,
-        tags: formData.tags || "",
+        tags: formData.tags,
       };
 
       let response;
@@ -177,6 +177,7 @@ const AddEditBlog: React.FC = () => {
             label="Tags (comma separated)"
             variant="outlined"
             fullWidth
+            required
             value={formData.tags}
             onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
             sx={{ marginBottom: 2 }}
