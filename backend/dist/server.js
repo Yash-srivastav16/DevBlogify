@@ -7,7 +7,7 @@ const express_1 = __importDefault(require("express"));
 const sqlite3_1 = __importDefault(require("sqlite3"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
-const port = 5000;
+const port = 3000;
 const db = new sqlite3_1.default.Database('./blogs.db');
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());

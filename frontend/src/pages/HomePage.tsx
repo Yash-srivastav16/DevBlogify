@@ -13,7 +13,7 @@ const HomePage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredBlogs, setFilteredBlogs] = useState<Blog[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true); // Loading state
+  const [loading, setLoading] = useState<boolean>(true); 
 
   const handleResetFilter = () => {
     setFilteredBlogs(blogs);
@@ -46,7 +46,7 @@ const HomePage: React.FC = () => {
   }, []);
 
   const uniqueTags = Array.from(new Set(blogs.flatMap((blog) => blog.tags)));
-  
+
   useEffect(() => {
     const filtered = blogs.filter(
       (blog) =>

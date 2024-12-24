@@ -9,6 +9,7 @@ import {
 import { addBlog, fetchBlogById, updateBlog } from "../api/blogService";
 import { useNavigate, useParams } from "react-router-dom";
 import { Notification } from "@progress/kendo-react-notification";
+import LoadingBar from "../components/LoadingBar";
 
 const AddEditBlog: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -17,19 +18,20 @@ const AddEditBlog: React.FC = () => {
     tags: "",
   });
 
-  const [loading, setLoading] = useState<boolean>(false);
+ 
+  const [submitting, setSubmitting] = useState<boolean>(false);
   const [notification, setNotification] = useState<{
     type: string;
     message: string;
   } | null>(null);
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
+  const [loading, setLoading] = useState<boolean>(id ? true: false);
 
   useEffect(() => {
     if (id) {
       const fetchBlog = async () => {
         try {
-          setLoading(true);
           const fetchedBlog = await fetchBlogById(id);
 
           setFormData({
@@ -50,7 +52,7 @@ const AddEditBlog: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
+    setSubmitting(true);
     try {
       const blogData = {
         title: formData.title,
@@ -74,15 +76,19 @@ const AddEditBlog: React.FC = () => {
       }
       setTimeout(() => {
         navigate("/");
-        setLoading(false);
+        setSubmitting(false);
       }, 2000);
       console.log("Blog created/updated successfully:", response);
     } catch (err) {
       console.error(err);
       setNotification({ type: "error", message: "Something went wrong!" });
-      setLoading(false);
+      setSubmitting(false);
     }
   };
+
+  if (loading) {
+    return <LoadingBar />;
+  }
 
   return (
     <Box
@@ -179,7 +185,7 @@ const AddEditBlog: React.FC = () => {
             variant="contained"
             type="submit"
             fullWidth
-            disabled={loading}
+            disabled={submitting}
             sx={{
               marginTop: 3,
               padding: 1.5,
@@ -191,7 +197,7 @@ const AddEditBlog: React.FC = () => {
               },
             }}
           >
-            {loading ? "Submitting..." : "Submit"}
+            {submitting ? "Submitting..." : "Submit"}
           </Button>
         </form>
       </Paper>

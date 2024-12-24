@@ -3,7 +3,7 @@ import sqlite3 from 'sqlite3';
 import cors from 'cors';
 
 const app = express();
-const port = 5000;
+const port = 3000;
 
 const db = new sqlite3.Database('./blogs.db');
 
