@@ -86,6 +86,14 @@ const BlogDetailsPage: React.FC = () => {
   }
 
   return (
+    <>    <head>
+            <title>{blog.title}</title>
+            <meta name="description" content={blog.content} />
+            <meta property="og:title" content={blog.title} />
+            <meta property="og:description" content={blog.content} />
+            <meta property="og:url" content={window.location.href} />
+            <meta property="og:type" content="article" />
+          </head>
     <Box
       sx={{
         padding: "2rem",
@@ -211,7 +219,7 @@ const BlogDetailsPage: React.FC = () => {
           <Typography>{notification.message}</Typography>
         </Notification>
       )}
-    </Box>
+    </Box></>
   );
 };
 
