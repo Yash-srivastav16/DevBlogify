@@ -39,6 +39,15 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
   const shareText = encodeURIComponent(blog.title);
 
   return (
+    <>
+    <head>
+        <title>{blog.title}</title>
+        <meta name="description" content={blog.content} />
+        <meta property="og:title" content={blog.title} />
+        <meta property="og:description" content={blog.content} />
+        <meta property="og:url" content={window.location.href} />
+        <meta property="og:type" content="article" />
+      </head>
     <Card
       style={{
         width: "300px",
@@ -171,7 +180,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
           Read More
         </Button>
       </CardFooter>
-    </Card>
+    </Card></>
   );
 };
 
