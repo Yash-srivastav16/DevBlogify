@@ -85,15 +85,10 @@ const BlogDetailsPage: React.FC = () => {
     );
   }
 
-  return (
-    <>    <head>
-            <title>{blog.title}</title>
-            <meta name="description" content={blog.content} />
-            <meta property="og:title" content={blog.title} />
-            <meta property="og:description" content={blog.content} />
-            <meta property="og:url" content={window.location.href} />
-            <meta property="og:type" content="article" />
-          </head>
+  return (<><head>
+    <title>{blog.title}</title>
+    <meta name="description" content={blog.content} />
+  </head>
     <Box
       sx={{
         padding: "2rem",

@@ -17,6 +17,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({ url, title }) => {
         component="a"
         href={`https://www.facebook.com/sharer/sharer.php?u=${url}`}
         target="_blank"
+        aria-label="Share on Facebook"
       >
         <Facebook />
       </IconButton>
@@ -26,6 +27,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({ url, title }) => {
         component="a"
         href={`https://twitter.com/intent/tweet?text=${title}&url=${url}`}
         target="_blank"
+        aria-label="Share on Twitter"
       >
         <Twitter />
       </IconButton>
@@ -35,6 +37,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({ url, title }) => {
         component="a"
         href={`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`}
         target="_blank"
+        aria-label="Share on LinkedIn"
       >
         <LinkedIn />
       </IconButton>

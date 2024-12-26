@@ -8,7 +8,7 @@ interface SearchBarProps {
   availableTags: string[];
 }
 
-const UnifiedSearchBar: React.FC<SearchBarProps> = ({
+const SearchBar: React.FC<SearchBarProps> = ({
   searchQuery,
   setSearchQuery,
   availableTags,
@@ -75,4 +75,4 @@ const UnifiedSearchBar: React.FC<SearchBarProps> = ({
   );
 };
 
-export default UnifiedSearchBar;
+export default SearchBar;
