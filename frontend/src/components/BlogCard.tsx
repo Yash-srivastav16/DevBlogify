@@ -1,12 +1,11 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import {
   Card,
   CardHeader,
   CardBody,
   CardFooter,
 } from "@progress/kendo-react-layout";
-import { Button } from "@progress/kendo-react-buttons";
 import Chip from "@mui/material/Chip";
 import { Blog } from "../utils/blogTypes";
 import { useNavigate } from "react-router-dom";
@@ -50,7 +49,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
         flexDirection: "column",
         justifyContent: "space-between",
         transition: "transform 0.3s ease-in-out",
-        position: "relative", 
+        position: "relative",
       }}
       onMouseOver={(e: { currentTarget: { style: { transform: string } } }) =>
         (e.currentTarget.style.transform = "scale(1.05)")
@@ -63,8 +62,8 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
         <Box
           sx={{
             position: "absolute",
-            top: "-3px", 
-            zIndex: 2, 
+            top: "-3px",
+            zIndex: 2,
           }}
         >
           <Chip
@@ -75,7 +74,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
               fontWeight: "bold",
               borderRadius: "4px",
               backgroundColor: "#d32f2f",
-              color: "#fff", 
+              color: "#fff",
               padding: "0.5rem",
             }}
           />
@@ -160,14 +159,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
         }}
       >
         <ShareButton url={shareUrl} title={shareText} />
-        <Button
-          onClick={handleReadMore}
-          style={{
-            backgroundColor: "#1976d2",
-            color: "#fff",
-            borderColor: "#1976d2",
-          }}
-        >
+        <Button variant="contained" color="primary" onClick={handleReadMore}>
           Read More
         </Button>
       </CardFooter>
