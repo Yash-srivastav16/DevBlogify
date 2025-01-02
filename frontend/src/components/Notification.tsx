@@ -23,7 +23,6 @@ const Notification: React.FC<NotificationProps> = ({ notification }) => {
         style: notification.type,
         icon: true,
       }}
-      closable={true}
       style={{
         zIndex: 12000,
       }}

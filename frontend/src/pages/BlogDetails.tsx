@@ -7,6 +7,7 @@ import { fetchBlogById, deleteBlog } from "../api/blogService";
 import { Blog } from "../utils/blogTypes";
 import LoadingBar from "../components/LoadingBar";
 import ShareButton from "../components/ShareButtons";
+import NoBlogsFound from "../components/NoBlogsFound";
 
 const BlogDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -16,7 +17,7 @@ const BlogDetailsPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [showDialog, setShowDialog] = useState<boolean>(false);
   const [notification, setNotification] = useState<{
-    type: 'success' | 'error';
+    type: "success" | "error";
     message: string;
   } | null>(null);
 
@@ -74,129 +75,121 @@ const BlogDetailsPage: React.FC = () => {
   }
 
   if (!blog) {
-    return (
-      <Typography
-        variant="h6"
-        color="error"
-        sx={{ textAlign: "center", marginTop: "2rem" }}
-      >
-        Blog not found!
-      </Typography>
-    );
+    return <NoBlogsFound message="No blog found!" />;
   }
 
-  return (<>
-    <Box
-      sx={{
-        padding: "2rem",
-        display: "flex",
-        justifyContent: "center",
-        minHeight: "70vh",
-        background: "linear-gradient(to bottom, #e3f2fd, #e0f7fa)",
-      }}
-    >
-      <Paper
-        elevation={3}
+  return (
+    <>
+      <Box
         sx={{
           padding: "2rem",
-          maxWidth: "800px",
-          width: "100%",
-          borderRadius: "10px",
-          boxShadow: 5,
-          height: "100%",
+          display: "flex",
+          justifyContent: "center",
+          minHeight: "70vh",
+          background: "linear-gradient(to bottom, #e3f2fd, #e0f7fa)",
         }}
       >
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold" }}>
-          {blog.title}
-        </Typography>
-        <Typography color="textSecondary" gutterBottom>
-          Posted on: {new Date(blog.timestamp).toLocaleDateString()} at{" "}
-          {new Date(blog.timestamp).toLocaleTimeString()}
-        </Typography>
-
-        <Box
+        <Paper
+          elevation={3}
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginY: "1rem",
+            padding: "2rem",
+            maxWidth: "800px",
+            width: "100%",
+            borderRadius: "10px",
+            boxShadow: 5,
+            height: "100%",
           }}
         >
-          <Box>
-            {blog.tags.map((tag: any, index: any) => (
-              <Chip
-                key={index}
-                label={`#${tag}`}
-                size="small"
-                sx={{
-                  marginRight: "0.5rem",
-                  marginBottom: "0.5rem",
-                  color: "#fff",
-                  backgroundColor: "#00695c",
-                }}
-              />
-            ))}
-          </Box>
+          <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold" }}>
+            {blog.title}
+          </Typography>
+          <Typography color="textSecondary" gutterBottom>
+            Posted on: {new Date(blog.timestamp).toLocaleDateString()} at{" "}
+            {new Date(blog.timestamp).toLocaleTimeString()}
+          </Typography>
 
-          <Box>
-            <ShareButton url={window.location.href} title={blog.title} />
-          </Box>
-        </Box>
-        <Typography variant="body1" gutterBottom>
-          {blog.content}
-        </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: "2rem",
-          }}
-        >
-          <Button variant="contained" color="primary" onClick={handleEdit}>
-            Edit Blog
-          </Button>
-          <Button
-            variant="contained"
-            color="error"
-            onClick={() => setShowDialog(true)}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginY: "1rem",
+            }}
           >
-            Delete Blog
-          </Button>
-        </Box>
-      </Paper>
+            <Box>
+              {blog.tags.map((tag: any, index: any) => (
+                <Chip
+                  key={index}
+                  label={`#${tag}`}
+                  size="small"
+                  sx={{
+                    marginRight: "0.5rem",
+                    marginBottom: "0.5rem",
+                    color: "#fff",
+                    backgroundColor: "#00695c",
+                  }}
+                />
+              ))}
+            </Box>
 
-      {showDialog && (
-        <Dialog title="Delete Blog" onClose={() => setShowDialog(false)}>
+            <Box>
+              <ShareButton url={window.location.href} title={blog.title} />
+            </Box>
+          </Box>
           <Typography variant="body1" gutterBottom>
-            Are you sure you want to delete this blog? This action cannot be
-            undone.
+            {blog.content}
           </Typography>
           <Box
             sx={{
               display: "flex",
-              justifyContent: "flex-end",
-              marginTop: "1rem",
+              justifyContent: "space-between",
+              marginTop: "2rem",
             }}
           >
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={() => setShowDialog(false)}
-              sx={{ marginRight: "1rem" }}
-            >
-              Cancel
+            <Button variant="contained" color="primary" onClick={handleEdit}>
+              Edit Blog
             </Button>
-            <Button variant="contained" color="error" onClick={handleDelete}>
-              Delete
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => setShowDialog(true)}
+            >
+              Delete Blog
             </Button>
           </Box>
-        </Dialog>
-      )}
+        </Paper>
 
-      {notification && (
-        <Notification notification={notification}/>
-      )}
-    </Box></>
+        {showDialog && (
+          <Dialog title="Delete Blog" onClose={() => setShowDialog(false)}>
+            <Typography variant="body1" gutterBottom>
+              Are you sure you want to delete this blog? This action cannot be
+              undone.
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                marginTop: "1rem",
+              }}
+            >
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => setShowDialog(false)}
+                sx={{ marginRight: "1rem" }}
+              >
+                Cancel
+              </Button>
+              <Button variant="contained" color="error" onClick={handleDelete}>
+                Delete
+              </Button>
+            </Box>
+          </Dialog>
+        )}
+
+        {notification && <Notification notification={notification} />}
+      </Box>
+    </>
   );
 };
 

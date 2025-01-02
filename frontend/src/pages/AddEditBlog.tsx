@@ -18,15 +18,42 @@ const AddEditBlog: React.FC = () => {
     tags: "",
   });
 
- 
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [notification, setNotification] = useState<{
-    type: 'success' | 'error';
+    type: "success" | "error";
     message: string;
   } | null>(null);
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const [loading, setLoading] = useState<boolean>(id ? true: false);
+  const [loading, setLoading] = useState<boolean>(id ? true : false);
+  const [errors, setErrors] = useState({
+    title: "",
+    content: "",
+    tags: "",
+  });
+
+  const validateForm = () => {
+    const newErrors = {
+      title: "",
+      content: "",
+      tags: "",
+    };
+
+    if (!formData.title.trim()) {
+      newErrors.title = "Title is required.";
+    }
+
+    if (!formData.content.trim()) {
+      newErrors.content = "Content is required.";
+    }
+
+    if (!formData.tags.trim()) {
+      newErrors.tags = "Tags are required.";
+    }
+
+    setErrors(newErrors);
+    return !Object.values(newErrors).some((error) => error !== "");
+  };
 
   useEffect(() => {
     if (id) {
@@ -52,38 +79,50 @@ const AddEditBlog: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitting(true);
-    try {
-      const blogData = {
-        title: formData.title,
-        content: formData.content,
-        tags: formData.tags,
-      };
+    if (validateForm()) {
+      try {
+        setSubmitting(true);
+        const blogData = {
+          title: formData.title,
+          content: formData.content,
+          tags: formData.tags,
+        };
 
-      let response;
-      if (id) {
-        response = await updateBlog(id, blogData);
-        setNotification({
-          type: "success",
-          message: "Blog updated successfully!",
-        });
-      } else {
-        response = await addBlog(blogData);
-        setNotification({
-          type: "success",
-          message: "Blog created successfully!",
-        });
-      }
-      setTimeout(() => {
-        navigate("/");
+        let response;
+        if (id) {
+          response = await updateBlog(id, blogData);
+          setNotification({
+            type: "success",
+            message: "Blog updated successfully!",
+          });
+        } else {
+          response = await addBlog(blogData);
+          setNotification({
+            type: "success",
+            message: "Blog created successfully!",
+          });
+        }
+        setTimeout(() => {
+          navigate("/");
+          setSubmitting(false);
+        }, 2000);
+        console.log("Blog created/updated successfully:", response);
+      } catch (err) {
+        console.error(err);
+        setNotification({ type: "error", message: "Something went wrong!" });
         setSubmitting(false);
-      }, 2000);
-      console.log("Blog created/updated successfully:", response);
-    } catch (err) {
-      console.error(err);
-      setNotification({ type: "error", message: "Something went wrong!" });
-      setSubmitting(false);
+      }
+    } else {
+      setNotification({
+        type: "error",
+        message: "Please fill out all required fields before submitting.",
+      });
     }
+  };
+
+  const handleFocus = (field: "title" | "content" | "tags") => {
+    setErrors((prevErrors) => ({ ...prevErrors, [field]: "" }));
+    if (notification) setNotification(null); 
   };
 
   if (loading) {
@@ -113,9 +152,9 @@ const AddEditBlog: React.FC = () => {
           marginBottom: "0",
           marginTop: "2.4rem",
           borderRadius: "15px",
-          textAlign: "center", 
-          background: "linear-gradient(45deg, #1976d2, #0288d1)", 
-          color: "#fff", 
+          textAlign: "center",
+          background: "linear-gradient(45deg, #1976d2, #0288d1)",
+          color: "#fff",
         }}
       >
         <Typography
@@ -123,14 +162,14 @@ const AddEditBlog: React.FC = () => {
           sx={{
             fontWeight: 600,
             fontSize: {
-              xs: '1.5rem', 
-              sm: '2rem',   
-              md: '2.5rem', 
+              xs: "1.5rem",
+              sm: "2rem",
+              md: "2.5rem",
             },
-            color: "#fff", 
+            color: "#fff",
             letterSpacing: 1.5,
             fontFamily: "'Poppins', sans-serif",
-            textShadow: "2px 2px 5px rgba(0, 0, 0, 0.2)", 
+            textShadow: "2px 2px 5px rgba(0, 0, 0, 0.2)",
           }}
         >
           {id ? "Edit Blog" : "Create New Blog"}
@@ -150,21 +189,22 @@ const AddEditBlog: React.FC = () => {
       >
         <form onSubmit={handleSubmit}>
           <TextField
-            label="Blog Title"
+            label="Blog Title *"
             variant="outlined"
             fullWidth
-            required
             value={formData.title}
             onChange={(e) =>
               setFormData({ ...formData, title: e.target.value })
             }
             sx={{ marginBottom: 2 }}
+            error={!!errors.title}
+            helperText={errors.title}
+            onFocus={() => handleFocus("title")}
           />
           <TextField
-            label="Blog Content"
+            label="Blog Content *"
             variant="outlined"
             fullWidth
-            required
             value={formData.content}
             onChange={(e) =>
               setFormData({ ...formData, content: e.target.value })
@@ -172,15 +212,20 @@ const AddEditBlog: React.FC = () => {
             multiline
             rows={6}
             sx={{ marginBottom: 2 }}
+            error={!!errors.content}
+            helperText={errors.content}
+            onFocus={() => handleFocus("content")}
           />
           <TextField
-            label="Tags (comma separated)"
+            label="Tags (comma separated) *"
             variant="outlined"
             fullWidth
-            required
             value={formData.tags}
             onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
             sx={{ marginBottom: 2 }}
+            error={!!errors.tags}
+            helperText={errors.tags}
+            onFocus={() => handleFocus("tags")}
           />
           <Button
             variant="contained"
@@ -202,9 +247,7 @@ const AddEditBlog: React.FC = () => {
           </Button>
         </form>
       </Paper>
-      {notification && (
-        <Notification notification={notification}/>
-      )}
+      {notification && <Notification notification={notification} />}
     </Box>
   );
 };
