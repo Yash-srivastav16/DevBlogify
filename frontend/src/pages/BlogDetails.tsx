@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Paper, Typography, Box, Button, Chip } from "@mui/material";
-import { Notification } from "@progress/kendo-react-notification";
+import Notification from "../components/Notification";
 import { Dialog } from "@progress/kendo-react-dialogs";
 import { fetchBlogById, deleteBlog } from "../api/blogService";
 import { Blog } from "../utils/blogTypes";
@@ -16,7 +16,7 @@ const BlogDetailsPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [showDialog, setShowDialog] = useState<boolean>(false);
   const [notification, setNotification] = useState<{
-    type: string;
+    type: 'success' | 'error';
     message: string;
   } | null>(null);
 
@@ -194,22 +194,7 @@ const BlogDetailsPage: React.FC = () => {
       )}
 
       {notification && (
-        <Notification
-          type={{
-            style: notification.type === "success" ? "success" : "error",
-            icon: true,
-          }}
-          closable={true}
-          onClose={() => setNotification(null)}
-          style={{
-            position: "fixed",
-            bottom: "1rem",
-            right: "1rem",
-            zIndex: 1000,
-          }}
-        >
-          <Typography>{notification.message}</Typography>
-        </Notification>
+        <Notification notification={notification}/>
       )}
     </Box></>
   );

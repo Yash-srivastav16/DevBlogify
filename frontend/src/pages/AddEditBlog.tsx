@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { addBlog, fetchBlogById, updateBlog } from "../api/blogService";
 import { useNavigate, useParams } from "react-router-dom";
-import { Notification } from "@progress/kendo-react-notification";
+import Notification from "../components/Notification";
 import LoadingBar from "../components/LoadingBar";
 
 const AddEditBlog: React.FC = () => {
@@ -21,7 +21,7 @@ const AddEditBlog: React.FC = () => {
  
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [notification, setNotification] = useState<{
-    type: string;
+    type: 'success' | 'error';
     message: string;
   } | null>(null);
   const navigate = useNavigate();
@@ -203,22 +203,7 @@ const AddEditBlog: React.FC = () => {
         </form>
       </Paper>
       {notification && (
-        <Notification
-          type={{
-            style: notification.type === "success" ? "success" : "error",
-            icon: true,
-          }}
-          closable={true}
-          onClose={() => setNotification(null)}
-          style={{
-            position: "fixed",
-            bottom: "1rem",
-            right: "1rem",
-            zIndex: 1000,
-          }}
-        >
-          <Typography>{notification.message}</Typography>
-        </Notification>
+        <Notification notification={notification}/>
       )}
     </Box>
   );
