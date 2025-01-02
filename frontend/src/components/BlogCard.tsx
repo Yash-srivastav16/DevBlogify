@@ -7,7 +7,7 @@ import {
   CardFooter,
 } from "@progress/kendo-react-layout";
 import Chip from "@mui/material/Chip";
-import { Blog } from "../utils/blogTypes";
+import { Blog } from "../interface/blogTypes";
 import { useNavigate } from "react-router-dom";
 import ShareButton from "./ShareButtons";
 

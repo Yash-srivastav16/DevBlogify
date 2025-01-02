@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  TextField,
-  Typography,
-  Paper,
-  Box,
-} from "@mui/material";
+import { Button, TextField, Typography, Paper, Box } from "@mui/material";
 import { addBlog, fetchBlogById, updateBlog } from "../api/blogService";
 import { useNavigate, useParams } from "react-router-dom";
 import Notification from "../components/Notification";
 import LoadingBar from "../components/LoadingBar";
+import { validateForm } from "../utils/validateForm";
 
 const AddEditBlog: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -31,29 +26,6 @@ const AddEditBlog: React.FC = () => {
     content: "",
     tags: "",
   });
-
-  const validateForm = () => {
-    const newErrors = {
-      title: "",
-      content: "",
-      tags: "",
-    };
-
-    if (!formData.title.trim()) {
-      newErrors.title = "Title is required.";
-    }
-
-    if (!formData.content.trim()) {
-      newErrors.content = "Content is required.";
-    }
-
-    if (!formData.tags.trim()) {
-      newErrors.tags = "Tags are required.";
-    }
-
-    setErrors(newErrors);
-    return !Object.values(newErrors).some((error) => error !== "");
-  };
 
   useEffect(() => {
     if (id) {
@@ -79,7 +51,11 @@ const AddEditBlog: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validateForm()) {
+    const newErrors = validateForm(formData);
+    setErrors(newErrors);
+    const isValid = Object.values(newErrors).every(error => error === "")
+    
+    if (isValid) {
       try {
         setSubmitting(true);
         const blogData = {
@@ -115,14 +91,15 @@ const AddEditBlog: React.FC = () => {
     } else {
       setNotification({
         type: "error",
-        message: "Please fill out all required fields before submitting.",
+        message:
+          "Some required fields are missing or invalid.",
       });
     }
   };
 
   const handleFocus = (field: "title" | "content" | "tags") => {
     setErrors((prevErrors) => ({ ...prevErrors, [field]: "" }));
-    if (notification) setNotification(null); 
+    if (notification) setNotification(null);
   };
 
   if (loading) {
@@ -222,7 +199,6 @@ const AddEditBlog: React.FC = () => {
             fullWidth
             value={formData.tags}
             onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
-            sx={{ marginBottom: 2 }}
             error={!!errors.tags}
             helperText={errors.tags}
             onFocus={() => handleFocus("tags")}
