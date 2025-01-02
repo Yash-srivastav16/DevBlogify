@@ -38,7 +38,7 @@ const LoadingBar: React.FC = () => {
           animation: "shrinkFade 4s infinite",
         }}><img
       src= "/logo.webp"
-      alt="Error"
+      alt="Logo"
       style={{
         width: "100%",
         height: "100%",

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = "http://localhost:3000";
+const API_URL = "https://devblogify-backend.onrender.com";
 
 //Fetch All Blogs
 export const fetchBlogs = async() => {
