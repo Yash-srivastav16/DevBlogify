@@ -8,7 +8,7 @@ describe('LoadingBar Component', () => {
 
     const logoImage = screen.getByAltText('Error');
     expect(logoImage).toBeInTheDocument();
-    expect(logoImage).toHaveAttribute('src', '/logo.png');
+    expect(logoImage).toHaveAttribute('src', '/logo.webp');
   });
 
   test('should display the CircularProgress spinner', () => {

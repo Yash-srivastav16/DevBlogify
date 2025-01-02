@@ -26,7 +26,7 @@ describe("ServerError Component", () => {
     render(<ServerError errorMessage={errorMessage} />);
     const imgElement = screen.getByAltText("Error");
     expect(imgElement).toBeInTheDocument();
-    expect(imgElement).toHaveAttribute("src", "/server-error.png");
+    expect(imgElement).toHaveAttribute("src", "/server-error.webp");
   });
 
   it("calls window.location.reload when the Refresh button is clicked", () => {

@@ -33,7 +33,7 @@ const ServerError: React.FC<ServerErrorProps> = ({
       }}
     >
       <img
-        src= "/server-error.png"
+        src= "/server-error.webp"
         alt="Error"
         style={{
           width: "370px",

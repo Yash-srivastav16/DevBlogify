@@ -22,7 +22,7 @@ const AboutDev: React.FC = () => {
         <Grid item xs={12} md={4} sx={{ textAlign: "center" }}>
           <Avatar
             alt="Yash"
-            src="/dev.jpg"
+            src="/dev.webp"
             sx={{
               width: "220px",
               height: "220px",

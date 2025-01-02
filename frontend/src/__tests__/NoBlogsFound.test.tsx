@@ -14,11 +14,11 @@ describe('NoBlogsFound Component', () => {
 
     const image = screen.getByAltText('No Blogs Found');
     expect(image).toBeInTheDocument();
-    expect(image).toHaveAttribute('src', '/no-result.png');
+    expect(image).toHaveAttribute('src', '/no-result.webp');
   });
 
   test('should display the custom image if the image prop is passed', () => {
-    const customImage = "/custom-image.png";
+    const customImage = "/custom-image.webp";
 
     render(
       <NoBlogsFound message="No blogs match your search criteria." image={customImage} />

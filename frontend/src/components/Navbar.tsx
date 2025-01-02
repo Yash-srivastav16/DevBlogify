@@ -42,7 +42,7 @@ const Navbar = () => {
           }}
         >
           <img
-            src="/logo.png"
+            src="/logo.webp"
             alt="DevBlogify Logo"
             style={{ height: "60px", marginRight: "10px" }}
           />
