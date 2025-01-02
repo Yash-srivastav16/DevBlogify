@@ -65,7 +65,7 @@ const Navbar = () => {
         </Typography>
 
         {isMobile ? (
-          <IconButton color="inherit" edge="end" onClick={toggleDrawer(true)}>
+          <IconButton aria-label="drawer" color="inherit" edge="end" onClick={toggleDrawer(true)}>
             <MenuIcon />
           </IconButton>
         ) : (

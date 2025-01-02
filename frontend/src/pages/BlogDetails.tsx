@@ -85,10 +85,7 @@ const BlogDetailsPage: React.FC = () => {
     );
   }
 
-  return (<><head>
-    <title>{blog.title}</title>
-    <meta name="description" content={blog.content} />
-  </head>
+  return (<>
     <Box
       sx={{
         padding: "2rem",
@@ -112,7 +109,7 @@ const BlogDetailsPage: React.FC = () => {
         <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold" }}>
           {blog.title}
         </Typography>
-        <Typography variant="subtitle2" color="textSecondary" gutterBottom>
+        <Typography color="textSecondary" gutterBottom>
           Posted on: {new Date(blog.timestamp).toLocaleDateString()} at{" "}
           {new Date(blog.timestamp).toLocaleTimeString()}
         </Typography>
@@ -134,8 +131,8 @@ const BlogDetailsPage: React.FC = () => {
                 sx={{
                   marginRight: "0.5rem",
                   marginBottom: "0.5rem",
-                  backgroundColor: "#0288d1",
                   color: "#fff",
+                  backgroundColor: "#00695c",
                 }}
               />
             ))}

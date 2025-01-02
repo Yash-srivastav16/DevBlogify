@@ -46,6 +46,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
             {...params}
             placeholder="Search blogs by title or tags..."
             variant="outlined"
+            aria-label="Search box"
             InputProps={{
               ...params.InputProps,
               startAdornment: (

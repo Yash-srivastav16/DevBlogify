@@ -126,7 +126,7 @@ const AboutDev: React.FC = () => {
             >
               Career Highlights
             </Typography>
-            <Typography variant="body1" sx={{ lineHeight: 1.8, color: "#555" }}>
+            <Typography variant="subtitle1" sx={{ lineHeight: 1.8, color: "#555" }}>
               I’ve worked with a range of technologies and tools, including
               .NET, JavaScript, TypeScript, AWS services, and CI/CD processes.
               Here are some key highlights:

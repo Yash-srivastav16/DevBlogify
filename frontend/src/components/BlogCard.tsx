@@ -141,7 +141,6 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
                 marginBottom: "0.5rem",
                 backgroundColor: "#00695c",
                 color: "#fff",
-                fontWeight: "bold",
               }}
             />
           ))}
