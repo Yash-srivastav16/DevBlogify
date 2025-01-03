@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { fetchBlogs } from "../api/blogService";
 import SearchBar from "../components/SearchBar";
 import BlogList from "../components/BlogList";
-import { Blog } from "../interface/blogTypes";
+import { Blog } from "../interfaces/blogTypes";
 import ServerError from "../components/ServerError";
 import NoBlogsFound from "../components/NoBlogsFound";
 import LoadingBar from "../components/LoadingBar";

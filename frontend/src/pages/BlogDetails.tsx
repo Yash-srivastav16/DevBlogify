@@ -4,7 +4,7 @@ import { Paper, Typography, Box, Button, Chip } from "@mui/material";
 import Notification from "../components/Notification";
 import { Dialog } from "@progress/kendo-react-dialogs";
 import { fetchBlogById, deleteBlog } from "../api/blogService";
-import { Blog } from "../interface/blogTypes";
+import { Blog } from "../interfaces/blogTypes";
 import LoadingBar from "../components/LoadingBar";
 import ShareButton from "../components/ShareButtons";
 import NoBlogsFound from "../components/NoBlogsFound";

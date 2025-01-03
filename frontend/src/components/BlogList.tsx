@@ -2,7 +2,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import BlogCard from './BlogCard';
-import { Blog } from '../interface/blogTypes';
+import { Blog } from '../interfaces/blogTypes';
 
 interface BlogListProps {
   blogs: Blog[];
