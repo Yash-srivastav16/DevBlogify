@@ -5,15 +5,16 @@ import BlogList from "../components/BlogList";
 import { Blog } from "../interfaces/blogTypes";
 import ServerError from "../components/ServerError";
 import NoBlogsFound from "../components/NoBlogsFound";
-import LoadingBar from "../components/LoadingBar";
 import { Box } from "@mui/material";
+import BlogCardSkeleton from "../components/Skeletons/BlogCardSkeleton";
+import SearchBarSkeleton from "../components/Skeletons/SearchBarSkeleton";
 
 const HomePage: React.FC = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredBlogs, setFilteredBlogs] = useState<Blog[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true); 
+  const [loading, setLoading] = useState<boolean>(true);
 
   const handleResetFilter = () => {
     setFilteredBlogs(blogs);
@@ -60,9 +61,42 @@ const HomePage: React.FC = () => {
 
   if (error) return <ServerError errorMessage={error} />;
 
-  if (loading) {
-    return <LoadingBar />;
-  }
+  const renderLoadingState = () => (
+    <>
+      <SearchBarSkeleton />
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "2rem",
+          justifyContent: "center",
+        }}
+      >
+        {Array.from({ length: 8 }).map((_, index) => (
+          <BlogCardSkeleton key={index} />
+        ))}
+      </Box>
+    </>
+  );
+
+  const renderContent = () => (
+    <>
+      <SearchBar
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        availableTags={uniqueTags}
+      />
+
+      {filteredBlogs.length > 0 ? (
+        <BlogList blogs={filteredBlogs} />
+      ) : (
+        <NoBlogsFound
+          message="No blogs match your search criteria."
+          onResetFilter={handleResetFilter}
+        />
+      )}
+    </>
+  );
 
   return (
     <div>
@@ -76,19 +110,7 @@ const HomePage: React.FC = () => {
           padding: "2rem",
         }}
       >
-        <SearchBar
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          availableTags={uniqueTags}
-        />
-        {filteredBlogs.length > 0 ? (
-          <BlogList blogs={filteredBlogs} />
-        ) : (
-          <NoBlogsFound
-            message="No blogs match your search criteria."
-            onResetFilter={handleResetFilter}
-          />
-        )}
+        {loading ? renderLoadingState() : renderContent()}
       </Box>
     </div>
   );

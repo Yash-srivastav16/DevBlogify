@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Paper, Typography, Box, Button, Chip } from "@mui/material";
+import { Typography, Box, Button, Chip } from "@mui/material";
 import Notification from "../components/Notification";
 import { Dialog } from "@progress/kendo-react-dialogs";
 import { fetchBlogById, deleteBlog } from "../api/blogService";
 import { Blog } from "../interfaces/blogTypes";
-import LoadingBar from "../components/LoadingBar";
 import ShareButton from "../components/ShareButtons";
 import NoBlogsFound from "../components/NoBlogsFound";
+import BlogDetailsSkeleton from "../components/Skeletons/BlogDetailsSkeleton";
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+} from "@progress/kendo-react-layout";
 
 const BlogDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -71,7 +77,7 @@ const BlogDetailsPage: React.FC = () => {
   };
 
   if (loading) {
-    return <LoadingBar />;
+    return <BlogDetailsSkeleton />;
   }
 
   if (!blog) {
@@ -79,41 +85,43 @@ const BlogDetailsPage: React.FC = () => {
   }
 
   return (
-    <>
-      <Box
-        sx={{
-          padding: "2rem",
-          display: "flex",
-          justifyContent: "center",
-          minHeight: "70vh",
-          background: "linear-gradient(to bottom, #e3f2fd, #e0f7fa)",
+    <Box
+      sx={{
+        padding: "2rem",
+        display: "flex",
+        justifyContent: "center",
+        minHeight: "70vh",
+        background: "linear-gradient(to bottom, #e3f2fd, #e0f7fa)",
+      }}
+    >
+      <Card
+        style={{
+          padding: "1rem",
+          maxWidth: "800px",
+          width: "100%",
+          borderRadius: "10px",
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <Paper
-          elevation={3}
-          sx={{
-            padding: "2rem",
-            maxWidth: "800px",
-            width: "100%",
-            borderRadius: "10px",
-            boxShadow: 5,
-            height: "100%",
-          }}
-        >
-          <Typography aria-label={`Blog title: ${blog.title}`} variant="h4" gutterBottom sx={{ fontWeight: "bold" }}>
+        <CardHeader>
+          <Typography
+            variant="h4"
+            style={{ fontWeight: "bold", marginBottom: "0.5rem" }}
+          >
             {blog.title}
           </Typography>
-          <Typography color="textSecondary" gutterBottom aria-label={`Blog timestamp: ${blog.timestamp}`}>
+          <Typography
+            color="textSecondary"
+            style={{ fontWeight: "bold" }}
+          >
             Posted on: {new Date(blog.timestamp).toLocaleDateString()} at{" "}
             {new Date(blog.timestamp).toLocaleTimeString()}
           </Typography>
-
           <Box
             sx={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              marginY: "1rem",
             }}
           >
             <Box>
@@ -122,77 +130,86 @@ const BlogDetailsPage: React.FC = () => {
                   key={index}
                   label={`#${tag}`}
                   size="small"
-                  aria-label={`Blog tags: ${blog.tags}`}
                   sx={{
                     marginRight: "0.5rem",
-                    marginBottom: "0.5rem",
+                    marginTop: "0.5rem",
                     color: "#fff",
                     backgroundColor: "#00695c",
                   }}
                 />
               ))}
             </Box>
-
-            <Box>
-              <ShareButton url={window.location.href} title={blog.title} />
-            </Box>
+            <ShareButton url={window.location.href} title={blog.title} />
           </Box>
-          <Typography variant="body1" gutterBottom aria-label={`Blog content: ${blog.content}`}>
+        </CardHeader>
+        <CardBody>
+          <Typography
+            variant="body1"
+            gutterBottom
+            aria-label={`Blog content: ${blog.content}`}
+          >
             {blog.content}
+          </Typography>
+        </CardBody>
+
+        <CardFooter
+          style={{ display: "flex", justifyContent: "space-between" }}
+        >
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleEdit}
+            aria-label="Edit Blog Button"
+          >
+            Edit Blog
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            aria-label="Delete Blog Button"
+            onClick={() => setShowDialog(true)}
+          >
+            Delete Blog
+          </Button>
+        </CardFooter>
+      </Card>
+
+      {showDialog && (
+        <Dialog title="Delete Blog" onClose={() => setShowDialog(false)}>
+          <Typography variant="body1" gutterBottom aria-label="Confirm Delete">
+            Are you sure you want to delete this blog? This action cannot be
+            undone.
           </Typography>
           <Box
             sx={{
               display: "flex",
-              justifyContent: "space-between",
-              marginTop: "2rem",
+              justifyContent: "flex-end",
+              marginTop: "1rem",
             }}
           >
-            <Button variant="contained" color="primary" onClick={handleEdit} aria-label="Edit Blog Button"> 
-              Edit Blog
+            <Button
+              variant="outlined"
+              color="primary"
+              aria-label="Cancel Delete"
+              onClick={() => setShowDialog(false)}
+              sx={{ marginRight: "1rem" }}
+            >
+              Cancel
             </Button>
             <Button
               variant="contained"
               color="error"
-              aria-label="Delete Blog Button"
-              onClick={() => setShowDialog(true)}
+              aria-label="Delete Button"
+              onClick={handleDelete}
             >
-              Delete Blog
+              Delete
             </Button>
           </Box>
-        </Paper>
+        </Dialog>
+      )}
 
-        {showDialog && (
-          <Dialog title="Delete Blog" onClose={() => setShowDialog(false)}>
-            <Typography variant="body1" gutterBottom aria-label="Confirm Delete">
-              Are you sure you want to delete this blog? This action cannot be
-              undone.
-            </Typography>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "flex-end",
-                marginTop: "1rem",
-              }}
-            >
-              <Button
-                variant="outlined"
-                color="primary"
-                aria-label="Cancel Delete"
-                onClick={() => setShowDialog(false)}
-                sx={{ marginRight: "1rem" }}
-              >
-                Cancel
-              </Button>
-              <Button variant="contained" color="error" aria-label="Delete Button" onClick={handleDelete}>
-                Delete
-              </Button>
-            </Box>
-          </Dialog>
-        )}
-
-        {notification && <Notification notification={notification} />}
-      </Box>
-    </>
+      {notification && <Notification notification={notification} />}
+    </Box>
   );
 };
 
