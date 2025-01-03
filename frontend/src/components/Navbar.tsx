@@ -100,7 +100,7 @@ const Navbar = () => {
         )}
       </Toolbar>
 
-      <Drawer anchor="right" open={openDrawer} onClose={toggleDrawer(false)}>
+      <Drawer anchor="right" aria-label= "navigation drawer" open={openDrawer} onClose={toggleDrawer(false)}>
         <List>
           <ListItem component={Link} to="/">
             <ListItemText primary="Home" />

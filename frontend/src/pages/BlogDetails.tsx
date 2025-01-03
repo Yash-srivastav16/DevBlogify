@@ -100,10 +100,10 @@ const BlogDetailsPage: React.FC = () => {
             height: "100%",
           }}
         >
-          <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold" }}>
+          <Typography aria-label={`Blog title: ${blog.title}`} variant="h4" gutterBottom sx={{ fontWeight: "bold" }}>
             {blog.title}
           </Typography>
-          <Typography color="textSecondary" gutterBottom>
+          <Typography color="textSecondary" gutterBottom aria-label={`Blog timestamp: ${blog.timestamp}`}>
             Posted on: {new Date(blog.timestamp).toLocaleDateString()} at{" "}
             {new Date(blog.timestamp).toLocaleTimeString()}
           </Typography>
@@ -117,11 +117,12 @@ const BlogDetailsPage: React.FC = () => {
             }}
           >
             <Box>
-              {blog.tags.map((tag: any, index: any) => (
+              {blog.tags.map((tag: string, index: number) => (
                 <Chip
                   key={index}
                   label={`#${tag}`}
                   size="small"
+                  aria-label={`Blog tags: ${blog.tags}`}
                   sx={{
                     marginRight: "0.5rem",
                     marginBottom: "0.5rem",
@@ -136,7 +137,7 @@ const BlogDetailsPage: React.FC = () => {
               <ShareButton url={window.location.href} title={blog.title} />
             </Box>
           </Box>
-          <Typography variant="body1" gutterBottom>
+          <Typography variant="body1" gutterBottom aria-label={`Blog content: ${blog.content}`}>
             {blog.content}
           </Typography>
           <Box
@@ -146,12 +147,13 @@ const BlogDetailsPage: React.FC = () => {
               marginTop: "2rem",
             }}
           >
-            <Button variant="contained" color="primary" onClick={handleEdit}>
+            <Button variant="contained" color="primary" onClick={handleEdit} aria-label="Edit Blog Button"> 
               Edit Blog
             </Button>
             <Button
               variant="contained"
               color="error"
+              aria-label="Delete Blog Button"
               onClick={() => setShowDialog(true)}
             >
               Delete Blog
@@ -161,7 +163,7 @@ const BlogDetailsPage: React.FC = () => {
 
         {showDialog && (
           <Dialog title="Delete Blog" onClose={() => setShowDialog(false)}>
-            <Typography variant="body1" gutterBottom>
+            <Typography variant="body1" gutterBottom aria-label="Confirm Delete">
               Are you sure you want to delete this blog? This action cannot be
               undone.
             </Typography>
@@ -175,12 +177,13 @@ const BlogDetailsPage: React.FC = () => {
               <Button
                 variant="outlined"
                 color="primary"
+                aria-label="Cancel Delete"
                 onClick={() => setShowDialog(false)}
                 sx={{ marginRight: "1rem" }}
               >
                 Cancel
               </Button>
-              <Button variant="contained" color="error" onClick={handleDelete}>
+              <Button variant="contained" color="error" aria-label="Delete Button" onClick={handleDelete}>
                 Delete
               </Button>
             </Box>

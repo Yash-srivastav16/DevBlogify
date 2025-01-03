@@ -168,6 +168,7 @@ const AddEditBlog: React.FC = () => {
           <TextField
             label="Blog Title *"
             variant="outlined"
+            aria-label= "Blog Title"
             fullWidth
             value={formData.title}
             onChange={(e) =>
@@ -181,6 +182,7 @@ const AddEditBlog: React.FC = () => {
           <TextField
             label="Blog Content *"
             variant="outlined"
+            aria-label= "Blog Content"
             fullWidth
             value={formData.content}
             onChange={(e) =>
@@ -196,6 +198,7 @@ const AddEditBlog: React.FC = () => {
           <TextField
             label="Tags (comma separated) *"
             variant="outlined"
+            aria-label= "Blog Tags"
             fullWidth
             value={formData.tags}
             onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
@@ -206,6 +209,7 @@ const AddEditBlog: React.FC = () => {
           <Button
             variant="contained"
             type="submit"
+            aria-label= "Submit Blog"
             fullWidth
             disabled={submitting}
             sx={{

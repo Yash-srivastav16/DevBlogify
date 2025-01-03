@@ -49,6 +49,7 @@ const AboutDev: React.FC = () => {
             <Button
               variant="contained"
               color="primary"
+              aria-label= "LinkedIn Profile"
               startIcon={<LinkedIn />}
               href="https://www.linkedin.com/in/yash-srivastav/"
               target="_blank"
@@ -62,6 +63,7 @@ const AboutDev: React.FC = () => {
                 color: "#fff",
                 "&:hover": { backgroundColor: "#555" },
               }}
+              aria-label= "Github Profile"
               startIcon={<GitHub />}
               href="https://github.com/Yash-srivastav16"
               target="_blank"
@@ -73,6 +75,7 @@ const AboutDev: React.FC = () => {
               startIcon={<Description />}
               href="/Yash_Srivastav_CV.pdf"
               target="_blank"
+              aria-label= "Resume"
             >
               Download Resume
             </Button>

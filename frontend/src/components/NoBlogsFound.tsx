@@ -43,6 +43,7 @@ const NoBlogsFound: React.FC<NoBlogsFoundProps> = ({
       {onResetFilter && (
         <Button
           variant="contained"
+          aria-label= "Reset Search"
           color="primary"
           onClick={onResetFilter}
           sx={{ marginTop: "1rem" }}

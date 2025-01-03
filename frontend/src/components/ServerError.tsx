@@ -55,6 +55,7 @@ const ServerError: React.FC<ServerErrorProps> = ({
       <Button
         variant="contained"
         color="primary"
+        aria-label= "Refresh Page"
         onClick={handleRefresh}
         sx={{
           textTransform: "none",

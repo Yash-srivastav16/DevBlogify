@@ -106,6 +106,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
             paddingTop: "6px",
           }}
           title={blog.title}
+          aria-label={`Blog title: ${blog.title}`}
         >
           {blog.title}
         </Typography>
@@ -127,6 +128,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
             fontSize: "0.9rem",
             color: "#5f6368",
           }}
+          aria-label={`Blog content: ${blog.content}`}
         >
           {blog.content.slice(0, 100)}...
         </Typography>
@@ -136,6 +138,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
               key={index}
               label={`#${tag}`}
               size="small"
+              aria-label={`Blog tags: ${blog.tags}`}
               sx={{
                 marginRight: "0.5rem",
                 marginBottom: "0.5rem",
@@ -158,7 +161,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
         }}
       >
         <ShareButton url={shareUrl} title={shareText} />
-        <Button variant="contained" color="primary" onClick={handleReadMore}>
+        <Button variant="contained" color="primary" onClick={handleReadMore} aria-label={`Read more about ${blog.title}`}>
           Read More
         </Button>
       </CardFooter>
